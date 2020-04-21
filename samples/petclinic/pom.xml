@@ -30,7 +30,7 @@
 
 		<start-class>org.springframework.samples.petclinic.PetClinicApplication</start-class>
 
-		<thin-launcher.version>1.0.23.RELEASE</thin-launcher.version>
+		<thin-launcher.version>1.0.23.GE-SNAPSHOT</thin-launcher.version>
 
 	</properties>
 
@@ -131,7 +131,7 @@
 				</dependencies>
 				<executions>
 					<execution>
-						<!-- Spring Boot Actuator displays build-related information if a 
+						<!-- Spring Boot Actuator displays build-related information if a
 							 META-INF/build-info.properties file is present -->
 						<goals>
 							<goal>build-info</goal>

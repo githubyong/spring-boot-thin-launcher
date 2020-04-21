@@ -29,6 +29,7 @@ import org.eclipse.aether.graph.Dependency;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.springframework.boot.loader.ExtendLibLoader;
 import org.springframework.boot.loader.archive.Archive;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.DefaultResourceLoader;
@@ -365,6 +366,10 @@ public class PathResolver {
 
 	private List<Archive> archives(List<Dependency> dependencies) {
 		List<Archive> list = new ArrayList<>();
+		List<Archive> extendsArchives = ExtendLibLoader.getClassPathArchives();
+		log.info("add_extend_archives :" + extendsArchives);
+		System.out.println("add_extend_archives :" + extendsArchives);
+		list.addAll(extendsArchives);
 		for (Dependency dependency : dependencies) {
 			File file = dependency.getArtifact().getFile();
 			if (file == null) {

@@ -90,7 +90,7 @@ public class ThinJarWrapper {
 
 	private static final String DEFAULT_LAUNCHER_CLASS = "org.springframework.boot.loader.thin.ThinJarLauncher";
 
-	private static final String DEFAULT_LIBRARY = "org.springframework.boot.experimental:spring-boot-thin-launcher:jar:exec:1.0.23.RELEASE";
+	private static final String DEFAULT_LIBRARY = "org.springframework.boot.experimental:spring-boot-thin-launcher:jar:exec:1.0.23.GE-SNAPSHOT";
 
 	private Properties properties;
 
@@ -316,11 +316,12 @@ public class ThinJarWrapper {
 	}
 
 	private String getUrl(String path) {
-		if (!path.startsWith("./") && !path.startsWith("/")) {
-			path = "./" + path;
-		}
 		File file = new File(path);
-		return "file://" + file.getAbsolutePath();
+		try {
+			return file.getCanonicalFile().toURI().toString();
+		} catch (IOException e) {
+			throw new IllegalStateException("Cannot locate file: " + path, e);
+		}
 	}
 
 	private boolean downloadFromUrl(String path, File target) {
